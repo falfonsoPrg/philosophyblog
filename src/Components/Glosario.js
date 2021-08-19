@@ -8,24 +8,37 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as RouterLink } from 'react-router-dom';
-
+import axios from 'axios';
 export default function Glosario(props) {
 
     const [words, setWords] = useState([])
+    const { handleLoader, openSnackbarByType } = props
+
+    const deleteEntity = (id) => {
+        handleLoader(true)
+        axios.delete(process.env.REACT_APP_ENDPOINT+"/glosarios/"+id).then(res => {
+          handleLoader(false)
+          loadData()
+        }).catch(e => {
+          openSnackbarByType(true, "error", "Some error ocurred")
+          handleLoader(false)
+        })
+      }
+
+      const loadData = () => {
+        handleLoader(true)
+        axios.get(process.env.REACT_APP_ENDPOINT+"/glosarios").then(res => {
+            setWords(res.data.response)
+          handleLoader(false)
+        }).catch(e => {
+          openSnackbarByType(true, "error", "Some error ocurred")
+          setWords([])
+          handleLoader(false)
+        })
+      }
 
     useEffect(() => {
-        setWords([
-            {
-                id:1,
-                word:"Palabra 1",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper faucibus lacus, sit amet accumsan sem. Proin et vestibulum ipsum, id sodales nibh. Fusce tellus turpis, blandit et faucibus eget, interdum vitae nulla. Suspendisse et metus libero. Curabitur id massa sed nunc auctor auctor ac at diam. Nunc viverra dolor eget felis bibendum, at volutpat justo ullamcorper. Maecenas efficitur velit sed purus sagittis, in porttitor dolor accumsan. Nullam fringilla imperdiet lectus, et tempor ante. Aliquam ante tellus, consectetur a luctus nec, iaculis et odio. Maecenas nec sem id massa pellentesque vulputate. Nullam volutpat orci diam, nec mattis lacus porttitor ut. Morbi eleifend malesuada enim sagittis malesuada. Maecenas vel nisi egestas, luctus nibh at, ullamcorper massa."
-            },
-            {
-                id:1,
-                word:"Palabra 2",
-                description: "Descripcion por la palabra 2"
-            }
-        ])
+        loadData()
     }, [])
 
     return (
@@ -55,9 +68,17 @@ export default function Glosario(props) {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
-                                    {w.description}
+                                    {w.definition}
                                 </Typography>
                             </AccordionDetails>
+                            {props.auth && 
+                                <Button size="small" color="primary" component={RouterLink} to={"/glosario/crear/"+w.id}>
+                                    Editar
+                                </Button>}
+                                {props.auth && 
+                      <Button size="small" color="danger" onClick={() => deleteEntity(w.id)}>
+                        Delete
+                      </Button>}
                         </Accordion>)
                     )
                 }

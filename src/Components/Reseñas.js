@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -8,21 +8,38 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink } from 'react-router-dom';
-
+import axios from 'axios';
 
 export default function Resenias(props) {
-    const [summary, setSummary] = useState([
-        {
-            id:1,
-            title: "Reseña 1",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam facilisis tempor ornare. Cras sit amet ligula dictum, auctor mi sed, euismod enim. Vestibulum rhoncus, nulla ut finibus tincidunt, erat tellus eleifend nisi, sit amet tristique diam leo sed quam. Suspendisse aliquam sem eros, a maximus turpis dapibus vel. Vivamus condimentum bibendum libero, ultrices malesuada nibh porta lacinia. Donec tempus vitae enim et vestibulum. Nam sed facilisis ante. Maecenas euismod sodales egestas. Nulla varius sodales odio et laoreet. Nulla aliquam, enim sed congue tempor, magna ipsum aliquam eros, id euismod felis erat sed ex.",
-        },
-        {
-            id:1,
-            title: "Reseña 2",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam facilisis tempor ornare. Cras sit amet ligula dictum, auctor mi sed, euismod enim. Vestibulum rhoncus, nulla ut finibus tincidunt, erat tellus eleifend nisi, sit amet tristique diam leo sed quam. Suspendisse aliquam sem eros, a maximus turpis dapibus vel. Vivamus condimentum bibendum libero, ultrices malesuada nibh porta lacinia. Donec tempus vitae enim et vestibulum. Nam sed facilisis ante. Maecenas euismod sodales egestas. Nulla varius sodales odio et laoreet. Nulla aliquam, enim sed congue tempor, magna ipsum aliquam eros, id euismod felis erat sed ex.",
-        }
-    ])
+    const [summary, setSummary] = useState([])
+    const { handleLoader, openSnackbarByType } = props
+
+    const deleteEntity = (id) => {
+      handleLoader(true)
+      axios.delete(process.env.REACT_APP_ENDPOINT+"/resenias/"+id).then(res => {
+        handleLoader(false)
+        loadData()
+      }).catch(e => {
+        openSnackbarByType(true, "error", "Some error ocurred")
+        handleLoader(false)
+      })
+    }
+
+    const loadData = () => {
+      handleLoader(true)
+        axios.get(process.env.REACT_APP_ENDPOINT+"/resenias").then(res => {
+          setSummary(res.data.response)
+          handleLoader(false)
+        }).catch(e => {
+          openSnackbarByType(true, "error", "Some error ocurred")
+          setSummary([])
+          handleLoader(false)
+        })
+    }
+
+    useEffect(() => {
+      loadData()
+    }, [])
     return (
         <Grid container spacing={3}>
             <Grid item xs={8}>
@@ -53,6 +70,14 @@ export default function Resenias(props) {
                       <Button size="small" color="primary">
                         Ver más..
                       </Button>
+                      {props.auth && 
+                      <Button size="small" color="primary" component={RouterLink} to={"/resenias/crear/"+d.id}>
+                        Editar
+                      </Button>}
+                      {props.auth && 
+                      <Button size="small" color="danger" onClick={() => deleteEntity(d.id)}>
+                        Delete
+                      </Button>}
                     </CardActions>
                   </Card>
                 </Grid>

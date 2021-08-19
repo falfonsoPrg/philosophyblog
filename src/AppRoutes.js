@@ -15,29 +15,29 @@ export default function AppRoutes(props) {
   return (
     <Switch>  
       <Route path="/glosario" exact>
-        <Glosario auth={props.auth} setAuth={props.handleAuth} />
+        <Glosario auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType} />
       </Route> 
       <Route path="/disertacion" exact>
-        <Disertacion auth={props.auth} setAuth={props.handleAuth} />
+        <Disertacion auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route>
       <Route path="/resenias" exact>
-        <Resenias auth={props.auth} setAuth={props.handleAuth} />
+        <Resenias auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route> 
       <Route path="/audiovisual" exact>
-        <Audiovisual auth={props.auth} setAuth={props.handleAuth} />
+        <Audiovisual auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route> 
 
       <Route path="/glosario/crear/:id" exact>
-        <CrearGlosario auth={props.auth} setAuth={props.handleAuth} />
+        <CrearGlosario auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route> 
       <Route path="/disertacion/crear/:id" exact>
-        <CrearDisertacion auth={props.auth} setAuth={props.handleAuth} />
+        <CrearDisertacion auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route> 
       <Route path="/resenias/crear/:id" exact>
-        <CrearResenia auth={props.auth} setAuth={props.handleAuth} />
+        <CrearResenia auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route> 
       <Route path="/audiovisual/crear/:id" exact>
-        <CrearAudiovisual auth={props.auth} setAuth={props.handleAuth} />
+        <CrearAudiovisual auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route> 
       
       
