@@ -41,7 +41,9 @@ export default function AppRoutes(props) {
       </Route> 
       
       
-      <Route default exact path="/" component={MainComponent} /> 
+      <Route default exact path="/" > 
+        <MainComponent auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
+      </Route>
     </Switch>
   );
 }
