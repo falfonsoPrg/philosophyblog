@@ -44,15 +44,22 @@ export default function Disertacion(props) {
     }, [])
     return (
         <Grid container spacing={3}>
-            <Grid item xs={8}>
-                <Paper>
-                    Disertación
-                </Paper>
-            </Grid>
-            <Grid item xs={4}>
-                {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/disertacion/crear/0">
+          <Grid item xs={12}>
+            <Paper>
+                <Grid container style={{padding:10}}>
+                    <Grid item xs={5}></Grid>
+                    <Grid item xs>
+                            <Typography variant="h4" style={{fontWeight:"bold", fontFamily:"cursive"}} >
+                            Disertación
+                            </Typography>
+                    </Grid>
+                    <Grid item xs>
+                    {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/disertacion/crear/0">
                     Agregar disertación
                 </Button>)}
+                    </Grid>
+                </Grid>
+            </Paper>
             </Grid>
             {disertation && disertation.length > 0 && 
                 disertation.map(d => 
@@ -69,7 +76,7 @@ export default function Disertacion(props) {
                       </CardContent>
                     </CardActionArea>
                     <CardActions>
-                      <Button size="small" color="primary">
+                      <Button size="small" color="primary" component={RouterLink} to={"/ver/disertacion/"+d.id}>
                         Ver más..
                       </Button>
                       {props.auth && 

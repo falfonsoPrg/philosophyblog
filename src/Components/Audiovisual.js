@@ -43,15 +43,22 @@ export default function Audiovisual(props) {
     }, [])
     return (
         <Grid container spacing={3}>
-            <Grid item xs={8}>
-                <Paper>
-                    Audiovisual
-                </Paper>
-            </Grid>
-            <Grid item xs={4}>
-                {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/audiovisual/crear/0">
+          <Grid item xs={12}>
+            <Paper>
+                <Grid container style={{padding:10}}>
+                    <Grid item xs={5}></Grid>
+                    <Grid item xs>
+                            <Typography variant="h4" style={{fontWeight:"bold", fontFamily:"cursive"}} >
+                              Audiovisual
+                            </Typography>
+                    </Grid>
+                    <Grid item xs>
+                    {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/audiovisual/crear/0">
                     Agregar Audiovisual
-                </Button>)}
+                  </Button>)}
+                    </Grid>
+                </Grid>
+            </Paper>
             </Grid>
             {audio && audio.length > 0 && 
                 audio.map(d => 
@@ -68,7 +75,7 @@ export default function Audiovisual(props) {
                       </CardContent>
                     </CardActionArea>
                     <CardActions>
-                      <Button size="small" color="primary">
+                      <Button size="small" color="primary" component={RouterLink} to={"/ver/audiovisual/"+d.id}>
                         Ver más..
                       </Button>
                       {props.auth && 

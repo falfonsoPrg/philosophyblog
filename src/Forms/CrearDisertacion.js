@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios'
@@ -77,15 +78,22 @@ export default function CrearDisertacion(props) {
     }, [])
     return (
         <Grid container spacing={3}>
-            <Grid item xs={8}>
-                <Paper>
-                    Agregar disertación
-                </Paper>
-            </Grid>
-            <Grid item xs={4}>
-                <Button variant="contained" color="primary" onClick={() => history.goBack()}>
+            <Grid item xs={12}>
+            <Paper>
+                <Grid container style={{padding:10}}>
+                    <Grid item xs={5}></Grid>
+                    <Grid item xs>
+                            <Typography variant="h5" style={{fontWeight:"bold", fontFamily:"cursive"}} >
+                            Agregar disertación
+                            </Typography>
+                    </Grid>
+                    <Grid item xs>
+                    <Button variant="contained" color="primary" onClick={() => history.goBack()}>
                     Volver
                 </Button>
+                    </Grid>
+                </Grid>
+            </Paper>
             </Grid>
             <Grid item xs={12}>
                 <Paper>

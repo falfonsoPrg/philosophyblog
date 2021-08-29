@@ -42,15 +42,22 @@ export default function Resenias(props) {
     }, [])
     return (
         <Grid container spacing={3}>
-            <Grid item xs={8}>
-                <Paper>
-                    Reseñas
-                </Paper>
-            </Grid>
-            <Grid item xs={4}>
-                {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/resenias/crear/0">
+          <Grid item xs={12}>
+            <Paper>
+                <Grid container style={{padding:10}}>
+                    <Grid item xs={5}></Grid>
+                    <Grid item xs>
+                            <Typography variant="h4" style={{fontWeight:"bold", fontFamily:"cursive"}} >
+                            Reseñas
+                            </Typography>
+                    </Grid>
+                    <Grid item xs>
+                    {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/resenias/crear/0">
                     Agregar reseña
                 </Button>)}
+                    </Grid>
+                </Grid>
+            </Paper>
             </Grid>
             {summary && summary.length > 0 && 
                 summary.map(d => 
@@ -62,12 +69,12 @@ export default function Resenias(props) {
                         {d.title}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                          {d.description}
+                        {d.description.substring(0,500)}...
                         </Typography>
                       </CardContent>
                     </CardActionArea>
                     <CardActions>
-                      <Button size="small" color="primary">
+                      <Button size="small" color="primary" component={RouterLink} to={"/ver/resenias/"+d.id}>
                         Ver más..
                       </Button>
                       {props.auth && 

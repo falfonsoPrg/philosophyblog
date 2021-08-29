@@ -5,6 +5,7 @@ import Glosario from "./Components/Glosario";
 import Disertacion from "./Components/Disertacion";
 import Resenias from "./Components/Reseñas";
 import Audiovisual from "./Components/Audiovisual";
+import VerEntidad from "./Components/VerEntidad";
 import CrearGlosario from "./Forms/CrearGlosario";
 import CrearDisertacion from "./Forms/CrearDisertacion";
 import CrearResenia from "./Forms/CrearReseña";
@@ -38,6 +39,10 @@ export default function AppRoutes(props) {
       </Route> 
       <Route path="/audiovisual/crear/:id" exact>
         <CrearAudiovisual auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
+      </Route> 
+
+      <Route path="/ver/:type/:id" exact>
+        <VerEntidad auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
       </Route> 
       
       

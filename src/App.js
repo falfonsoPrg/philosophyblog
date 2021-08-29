@@ -25,11 +25,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
-import SecurityIcon from '@material-ui/icons/Security';
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import MovieFilterIcon from '@material-ui/icons/MovieFilter';
 
 import AppRoutes from './AppRoutes'
 
@@ -228,7 +230,16 @@ export default function MiniDrawer() {
               <div>
                   Log in
                 {/* <IconButton component={RouterLink} to="/login"> */}
-                <IconButton onClick={() => setAuth(true)}>
+                <IconButton onClick={() => {
+                  let pass = prompt("Ingrese la contraseña")
+                  if(pass && pass=="Abc123*"){
+                    setAuth(true)
+                  }else{
+                    setAuth(false)
+                    openSnackbarByType(true,"error","Contraseña incorrecta")
+                  }
+                }
+                }>
                     <VpnKeyIcon style={{ color: 'white' }} />
                 </IconButton>
               </div>
@@ -256,19 +267,19 @@ export default function MiniDrawer() {
         <Divider />
         <List>
             <ListItem button key={"Glosario"} component={RouterLink} to="/glosario">
-              <ListItemIcon ><MailIcon /></ListItemIcon>
+              <ListItemIcon ><SpellcheckIcon /></ListItemIcon>
               <ListItemText primary={"Glosario"} />
             </ListItem>
             <ListItem button key={"Disertación"} component={RouterLink} to="/disertacion">
-              <ListItemIcon ><SecurityIcon /></ListItemIcon>
+              <ListItemIcon ><RecordVoiceOverIcon /></ListItemIcon>
               <ListItemText primary={"Disertación"} />
             </ListItem>
             <ListItem button key={"Reseñas"} component={RouterLink} to="/resenias">
-              <ListItemIcon ><SecurityIcon /></ListItemIcon>
+              <ListItemIcon ><AssignmentIcon /></ListItemIcon>
               <ListItemText primary={"Reseñas"} />
             </ListItem>
             <ListItem button key={"Audiovisual"} component={RouterLink} to="/audiovisual">
-              <ListItemIcon ><SecurityIcon /></ListItemIcon>
+              <ListItemIcon ><MovieFilterIcon /></ListItemIcon>
               <ListItemText primary={"Audiovisual"} />
             </ListItem>
         </List>

@@ -43,15 +43,22 @@ export default function Glosario(props) {
 
     return (
         <Grid container spacing={3}>
-            <Grid item xs={8}>
-                <Paper>
-                    Glosario
-                </Paper>
-            </Grid>
-            <Grid item xs={4}>
-                {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/glosario/crear/0">
-                    Agregar palabra
-                </Button>)}
+            <Grid item xs={12}>
+            <Paper>
+                <Grid container style={{padding:10}}>
+                    <Grid item xs={5}></Grid>
+                    <Grid item xs>
+                            <Typography variant="h4" style={{fontWeight:"bold", fontFamily:"cursive"}} >
+                                Glosario
+                            </Typography>
+                    </Grid>
+                    <Grid item xs>
+                    {props.auth && (<Button variant="contained" color="primary" component={RouterLink} to="/glosario/crear/0">
+                        Agregar palabra
+                    </Button>)}
+                    </Grid>
+                </Grid>
+            </Paper>
             </Grid>
 
             <Grid item xs={12}>
